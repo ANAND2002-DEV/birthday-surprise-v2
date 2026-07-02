@@ -460,4 +460,40 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 });
 
+/* ===============================
+   GALLERY ANIMATION
+================================ */
+
+const galleryImages =
+document.querySelectorAll(".galleryGrid img");
+
+const galleryObserver =
+new IntersectionObserver((entries)=>{
+
+    entries.forEach(entry=>{
+
+        if(entry.isIntersecting){
+
+            galleryImages.forEach((img,index)=>{
+
+                setTimeout(()=>{
+
+                    img.classList.add("show");
+
+                },index*180);
+
+            });
+
+        }
+
+    });
+
+},{
+    threshold:.25
+});
+
+const gallery =
+document.querySelector(".galleryGrid");
+
+galleryObserver.observe(gallery);
 // ---------------- END ----------------
