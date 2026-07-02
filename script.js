@@ -193,14 +193,6 @@ loveLetter.style.display = "none";
 const paragraphs =
 typedLetter.querySelectorAll("p");
 
-paragraphs.forEach(p=>{
-
-    p.dataset.text = p.innerHTML;
-
-    p.innerHTML = "";
-
-});
-
 let paragraphIndex = 0;
 
 function startTyping(){
@@ -216,14 +208,6 @@ function startTyping(){
     typeNextParagraph();
 
 }
-
-function typeNextParagraph(){
-
-    if(paragraphIndex >= paragraphs.length){
-
-        return;
-
-    }
 
     const paragraph =
     paragraphs[paragraphIndex];
@@ -273,27 +257,25 @@ function typeNextParagraph(){
 
 openLetter.addEventListener("click",()=>{
 
-    envelope.style.transition =
-    ".6s";
+    envelope.style.transition = ".6s";
 
     envelope.style.opacity = "0";
 
-    envelope.style.transform =
-    "scale(.95)";
+    envelope.style.transform = "scale(.95)";
 
     setTimeout(()=>{
 
-        envelope.style.display="none";
+        envelope.style.display = "none";
 
-        loveLetter.style.display="block";
+        loveLetter.style.display = "block";
+
+        loveLetter.classList.add("show");
 
         loveLetter.scrollIntoView({
 
             behavior:"smooth"
 
         });
-
-        startTyping();
 
     },600);
 
