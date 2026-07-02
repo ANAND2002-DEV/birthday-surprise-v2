@@ -427,5 +427,5 @@ document.addEventListener("DOMContentLoaded",()=>{
     showVisibleSections();
 
 });
-
+openBtn.addEventListener("click", startExperience);
 /* ---------- END ---------- */
