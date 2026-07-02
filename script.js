@@ -406,45 +406,40 @@ finalPhotoObserver.observe(finalPhoto);
 
 /* ---------- POPUP ---------- */
 
-const popup =
-document.getElementById("birthdayPopup");
-
-const closePopup =
-document.getElementById("closePopup");
+const popup = document.getElementById("birthdayPopup");
+const closePopup = document.getElementById("closePopup");
+const ending = document.querySelector(".ending");
 
 let popupShown = false;
 
-window.addEventListener("scroll",()=>{
+const popupObserver = new IntersectionObserver((entries)=>{
 
-    if(popupShown) return;
+    entries.forEach(entry=>{
 
-    const scrollBottom =
-    window.scrollY + window.innerHeight;
+        if(entry.isIntersecting && !popupShown){
 
-    const pageHeight =
-    document.documentElement.scrollHeight;
+            popupShown = true;
 
-    if(scrollBottom >= pageHeight-250){
-
-        popupShown = true;
-
-        setTimeout(()=>{
-
-            popup.style.display="flex";
+            popup.style.display = "flex";
 
             startConfetti();
 
-        },1200);
+        }
 
-    }
+    });
 
+},{
+    threshold:0.4
 });
+
+popupObserver.observe(ending);
 
 closePopup.addEventListener("click",()=>{
 
     popup.style.display="none";
 
 });
+
 
 /* ---------- CONFETTI ---------- */
 
