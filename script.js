@@ -1,12 +1,11 @@
 /* ==========================================
    HAPPY BIRTHDAY LOVE ❤️
-   VERSION 2
+   VERSION 3
    PART 1
 ==========================================*/
 
-// ---------------- ELEMENTS ----------------
+/* ---------- ELEMENTS ---------- */
 
-const loadingScreen = document.getElementById("loadingScreen");
 const coverPage = document.getElementById("coverPage");
 const mainContent = document.getElementById("mainContent");
 
@@ -16,58 +15,57 @@ const openBtn = document.getElementById("openBtn");
 
 const musicControl = document.getElementById("musicControl");
 
-const fadeSections = document.querySelectorAll(".fade-section");
+const fadeSections =
+document.querySelectorAll(".fade-section");
 
-// ---------------- LOADING ----------------
+/* ---------- INITIAL ---------- */
 
-window.addEventListener("load", () => {
+mainContent.style.display = "none";
 
-    setTimeout(() => {
+musicControl.style.display = "none";
 
-        loadingScreen.style.opacity = "0";
+/* ---------- START EXPERIENCE ---------- */
 
-        setTimeout(() => {
+function startExperience(){
 
-            loadingScreen.style.display = "none";
-
-        }, 800);
-
-    }, 1500);
-
-});
-
-// ---------------- START EXPERIENCE ----------------
-
-function startExperience() {
-
-    coverPage.style.display = "none";
-
-    mainContent.style.display = "block";
+    bgMusic.play().catch(()=>{});
 
     musicControl.style.display = "flex";
 
-    bgMusic.play().catch(() => {});
+    coverPage.style.transition =
+    "opacity .8s ease";
 
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
+    coverPage.style.opacity = "0";
 
-    showVisibleSections();
+    setTimeout(()=>{
+
+        coverPage.style.display = "none";
+
+        mainContent.style.display = "block";
+
+        window.scrollTo(0,0);
+
+        showVisibleSections();
+
+    },800);
 
 }
 
-// ---------------- MUSIC BUTTON ----------------
+/* ---------- MUSIC CONTROL ---------- */
 
 let musicPlaying = true;
 
-musicControl.addEventListener("click", () => {
+musicControl.addEventListener("click",()=>{
 
-    if (musicPlaying) {
+    if(musicPlaying){
 
         bgMusic.pause();
 
         musicControl.innerHTML = "🔇";
 
-    } else {
+    }
+
+    else{
 
         bgMusic.play();
 
@@ -79,13 +77,14 @@ musicControl.addEventListener("click", () => {
 
 });
 
-// ---------------- FADE ANIMATION ----------------
+/* ---------- FADE ANIMATION ---------- */
 
-const observer = new IntersectionObserver((entries) => {
+const observer =
+new IntersectionObserver(entries=>{
 
-    entries.forEach(entry => {
+    entries.forEach(entry=>{
 
-        if (entry.isIntersecting) {
+        if(entry.isIntersecting){
 
             entry.target.classList.add("show");
 
@@ -93,25 +92,22 @@ const observer = new IntersectionObserver((entries) => {
 
     });
 
-}, {
-
-    threshold: 0.15
-
+},{
+    threshold:.15
 });
 
-fadeSections.forEach(section => {
+fadeSections.forEach(section=>{
 
     observer.observe(section);
 
 });
 
-// ---------------- FIRST SHOW ----------------
-
 function showVisibleSections(){
 
     fadeSections.forEach(section=>{
 
-        const rect = section.getBoundingClientRect();
+        const rect =
+        section.getBoundingClientRect();
 
         if(rect.top < window.innerHeight){
 
@@ -123,14 +119,14 @@ function showVisibleSections(){
 
 }
 
+/* ---------- END PART 1 ---------- */
 /* ==========================================
+   HAPPY BIRTHDAY LOVE ❤️
+   VERSION 3
    PART 2
-   RELATIONSHIP COUNTER
-   ENVELOPE
-   TYPEWRITER LETTER
 ==========================================*/
 
-// ---------------- LIVE COUNTER ----------------
+/* ---------- RELATIONSHIP COUNTER ---------- */
 
 const startDate = new Date("2025-10-02T00:00:00");
 
@@ -143,9 +139,9 @@ function updateCounter(){
 
     const now = new Date();
 
-    const difference = now - startDate;
+    const diff = now - startDate;
 
-    const totalSeconds = Math.floor(difference / 1000);
+    const totalSeconds = Math.floor(diff / 1000);
 
     const days = Math.floor(totalSeconds / 86400);
 
@@ -162,13 +158,13 @@ function updateCounter(){
     daysEl.textContent = days;
 
     hoursEl.textContent =
-        String(hours).padStart(2,"0");
+    String(hours).padStart(2,"0");
 
     minutesEl.textContent =
-        String(minutes).padStart(2,"0");
+    String(minutes).padStart(2,"0");
 
     secondsEl.textContent =
-        String(seconds).padStart(2,"0");
+    String(seconds).padStart(2,"0");
 
 }
 
@@ -176,112 +172,178 @@ updateCounter();
 
 setInterval(updateCounter,1000);
 
-// ---------------- LETTER ----------------
-
-const openLetter =
-document.getElementById("openLetter");
-
-const loveLetter =
-document.querySelector(".loveLetter");
+/* ---------- LETTER ---------- */
 
 const envelope =
 document.querySelector(".letterIntro");
 
+const loveLetter =
+document.querySelector(".loveLetter");
+
+const openLetter =
+document.getElementById("openLetter");
+
 const typedLetter =
 document.getElementById("typedLetter");
 
-// Hide letter initially
-
 loveLetter.style.display = "none";
 
-// ---------------- OPEN LETTER ----------------
-
-openLetter.addEventListener("click",()=>{
-
-    envelope.style.display = "none";
-
-    loveLetter.style.display = "block";
-
-    loveLetter.scrollIntoView({
-
-        behavior:"smooth"
-
-    });
-
-    startTyping();
-
-});
-
-// ---------------- TYPEWRITER ----------------
+/* ---------- TYPEWRITER ---------- */
 
 const paragraphs =
 typedLetter.querySelectorAll("p");
 
 paragraphs.forEach(p=>{
 
-    p.dataset.original = p.innerHTML;
+    p.dataset.text = p.innerHTML;
 
     p.innerHTML = "";
 
 });
 
-let currentParagraph = 0;
+let paragraphIndex = 0;
 
 function startTyping(){
 
-    typeParagraph();
+    paragraphIndex = 0;
+
+    paragraphs.forEach(p=>{
+
+        p.innerHTML = "";
+
+    });
+
+    typeNextParagraph();
 
 }
 
-function typeParagraph(){
+function typeNextParagraph(){
 
-    if(currentParagraph >= paragraphs.length){
+    if(paragraphIndex >= paragraphs.length){
 
         return;
 
     }
 
     const paragraph =
-    paragraphs[currentParagraph];
+    paragraphs[paragraphIndex];
 
     const text =
-    paragraph.dataset.original;
+    paragraph.dataset.text;
 
-    let index = 0;
+    let i = 0;
 
     function typing(){
 
-        if(index < text.length){
+        if(i >= text.length){
 
-            paragraph.innerHTML += text.charAt(index);
+            paragraphIndex++;
 
-            index++;
+            setTimeout(typeNextParagraph,150);
 
-            setTimeout(typing,25);
-
-        }
-
-        else{
-
-            currentParagraph++;
-
-            setTimeout(typeParagraph,300);
+            return;
 
         }
+
+        paragraph.innerHTML += text.charAt(i);
+
+        let speed = 10;
+
+        const char = text.charAt(i);
+
+        if(char===".") speed=180;
+
+        if(char===",") speed=80;
+
+        if(char==="!") speed=150;
+
+        if(char==="?") speed=150;
+
+        i++;
+
+        setTimeout(typing,speed);
 
     }
 
     typing();
 
 }
+
+/* ---------- OPEN LETTER ---------- */
+
+openLetter.addEventListener("click",()=>{
+
+    envelope.style.transition =
+    ".6s";
+
+    envelope.style.opacity = "0";
+
+    envelope.style.transform =
+    "scale(.95)";
+
+    setTimeout(()=>{
+
+        envelope.style.display="none";
+
+        loveLetter.style.display="block";
+
+        loveLetter.scrollIntoView({
+
+            behavior:"smooth"
+
+        });
+
+        startTyping();
+
+    },600);
+
+});
+
+/* ---------- END PART 2 ---------- */
 /* ==========================================
+   HAPPY BIRTHDAY LOVE ❤️
+   VERSION 3
    PART 3
-   HEARTS
-   POPUP
-   CONFETTI
 ==========================================*/
 
-// ---------------- HEARTS ----------------
+/* ---------- GALLERY ANIMATION ---------- */
+
+const gallery =
+document.querySelector(".galleryGrid");
+
+const galleryImages =
+document.querySelectorAll(".galleryGrid img");
+
+const galleryObserver =
+new IntersectionObserver((entries)=>{
+
+    entries.forEach(entry=>{
+
+        if(entry.isIntersecting){
+
+            galleryImages.forEach((img,index)=>{
+
+                setTimeout(()=>{
+
+                    img.classList.add("show");
+
+                },index*180);
+
+            });
+
+            galleryObserver.unobserve(gallery);
+
+        }
+
+    });
+
+},{
+    threshold:.25
+});
+
+galleryObserver.observe(gallery);
+
+/* ---------- FLOATING HEARTS ---------- */
 
 const heartContainer =
 document.getElementById("heartContainer");
@@ -299,10 +361,10 @@ function createHeart(){
     Math.random()*100 + "vw";
 
     heart.style.fontSize =
-    (18 + Math.random()*18) + "px";
+    (18 + Math.random()*14) + "px";
 
     heart.style.animationDuration =
-    (6 + Math.random()*4) + "s";
+    (8 + Math.random()*3) + "s";
 
     heartContainer.appendChild(heart);
 
@@ -310,13 +372,57 @@ function createHeart(){
 
         heart.remove();
 
-    },10000);
+    },11000);
 
 }
 
-setInterval(createHeart,1800);
+setInterval(createHeart,2500);
 
-// ---------------- FINAL POPUP ----------------
+/* ---------- FINAL PHOTO ---------- */
+
+const finalPhoto =
+document.querySelector(".finalPhoto");
+
+const finalPhotoObserver =
+new IntersectionObserver((entries)=>{
+
+    entries.forEach(entry=>{
+
+        if(entry.isIntersecting){
+
+            finalPhoto.animate([
+
+                {
+
+                    transform:"scale(.94)"
+
+                },
+
+                {
+
+                    transform:"scale(1)"
+
+                }
+
+            ],{
+
+                duration:1200,
+
+                fill:"forwards"
+
+            });
+
+        }
+
+    });
+
+},{
+    threshold:.5
+});
+
+finalPhotoObserver.observe(finalPhoto);
+
+/* ---------- POPUP ---------- */
 
 const popup =
 document.getElementById("birthdayPopup");
@@ -324,45 +430,41 @@ document.getElementById("birthdayPopup");
 const closePopup =
 document.getElementById("closePopup");
 
-const finalSection =
-document.querySelector(".finalSection");
-
 let popupShown = false;
 
-const popupObserver =
-new IntersectionObserver(entries=>{
+window.addEventListener("scroll",()=>{
 
-    entries.forEach(entry=>{
+    if(popupShown) return;
 
-        if(entry.isIntersecting && !popupShown){
+    const scrollBottom =
+    window.scrollY + window.innerHeight;
 
-            popupShown = true;
+    const pageHeight =
+    document.documentElement.scrollHeight;
 
-            setTimeout(()=>{
+    if(scrollBottom >= pageHeight-250){
 
-                popup.style.display = "flex";
+        popupShown = true;
 
-                startConfetti();
+        setTimeout(()=>{
 
-            },3000);
+            popup.style.display="flex";
 
-        }
+            startConfetti();
 
-    });
+        },1200);
 
-},{
-    threshold:.7
+    }
+
 });
-
-popupObserver.observe(finalSection);
 
 closePopup.addEventListener("click",()=>{
 
-    popup.style.display = "none";
+    popup.style.display="none";
 
 });
 
-// ---------------- CONFETTI ----------------
+/* ---------- CONFETTI ---------- */
 
 const confettiContainer =
 document.getElementById("confettiContainer");
@@ -394,7 +496,7 @@ function startConfetti(){
         `rotate(${Math.random()*360}deg)`;
 
         piece.style.animation=
-        `confettiFall ${4+Math.random()*4}s linear forwards`;
+        `confettiFall ${4+Math.random()*3}s linear forwards`;
 
         confettiContainer.appendChild(piece);
 
@@ -408,51 +510,7 @@ function startConfetti(){
 
 }
 
-// ---------------- FINAL PHOTO ----------------
-
-const finalPhoto =
-document.querySelector(".finalPhoto");
-
-const finalObserver =
-new IntersectionObserver(entries=>{
-
-    entries.forEach(entry=>{
-
-        if(entry.isIntersecting){
-
-            finalPhoto.animate([
-
-                {
-
-                    transform:"scale(.92)"
-
-                },
-
-                {
-
-                    transform:"scale(1)"
-
-                }
-
-            ],{
-
-                duration:1200,
-
-                fill:"forwards"
-
-            });
-
-        }
-
-    });
-
-},{
-    threshold:.5
-});
-
-finalObserver.observe(finalPhoto);
-
-// ---------------- ENTRANCE ----------------
+/* ---------- INITIAL SHOW ---------- */
 
 document.addEventListener("DOMContentLoaded",()=>{
 
@@ -460,40 +518,4 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 });
 
-/* ===============================
-   GALLERY ANIMATION
-================================ */
-
-const galleryImages =
-document.querySelectorAll(".galleryGrid img");
-
-const galleryObserver =
-new IntersectionObserver((entries)=>{
-
-    entries.forEach(entry=>{
-
-        if(entry.isIntersecting){
-
-            galleryImages.forEach((img,index)=>{
-
-                setTimeout(()=>{
-
-                    img.classList.add("show");
-
-                },index*180);
-
-            });
-
-        }
-
-    });
-
-},{
-    threshold:.25
-});
-
-const gallery =
-document.querySelector(".galleryGrid");
-
-galleryObserver.observe(gallery);
-// ---------------- END ----------------
+/* ---------- END ---------- */
