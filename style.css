@@ -111,79 +111,6 @@ img{
 
 /* ---------- LOADING SCREEN ---------- */
 
-#loadingScreen{
-
-    position:fixed;
-
-    inset:0;
-
-    background:#fff7fb;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    z-index:9999;
-
-    transition:.8s;
-
-}
-
-.loaderBox{
-
-    text-align:center;
-
-}
-
-.loaderHeart{
-
-    font-size:60px;
-
-    animation:pulse 1.2s infinite;
-
-}
-
-.loaderBox h2{
-
-    color:var(--pink);
-
-    margin-top:20px;
-
-    font-size:2.1rem;
-
-}
-
-.loaderBox p{
-
-    margin-top:10px;
-
-    color:#555;
-
-}
-
-@keyframes pulse{
-
-    0%{
-
-        transform:scale(1);
-
-    }
-
-    50%{
-
-        transform:scale(1.15);
-
-    }
-
-    100%{
-
-        transform:scale(1);
-
-    }
-
-}
 
 /* ---------- COVER ---------- */
 
@@ -1020,5 +947,24 @@ img{
     color:#666;
 
     font-style:italic;
+
+}
+@keyframes confettiFall{
+
+    from{
+
+        transform:translateY(-20px) rotate(0deg);
+
+        opacity:1;
+
+    }
+
+    to{
+
+        transform:translateY(120vh) rotate(720deg);
+
+        opacity:0;
+
+    }
 
 }
