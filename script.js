@@ -183,9 +183,6 @@ document.querySelector(".loveLetter");
 const openLetter =
 document.getElementById("openLetter");
 
-const typedLetter =
-document.getElementById("typedLetter");
-
 loveLetter.style.display = "none";
 
 
