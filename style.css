@@ -483,7 +483,6 @@ img{
     gap:14px;
 
 }
-
 .galleryGrid img{
 
     width:100%;
@@ -496,7 +495,21 @@ img{
 
     box-shadow:0 10px 22px rgba(0,0,0,.10);
 
-    transition:.4s;
+    opacity:0;
+
+    transform:translateY(40px) scale(.95);
+
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+
+}
+
+.galleryGrid img.show{
+
+    opacity:1;
+
+    transform:translateY(0) scale(1);
 
 }
 
