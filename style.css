@@ -578,6 +578,8 @@ img{
 
 .letterPaper{
 
+    position:relative;
+
     background:#fffdf7;
 
     border-radius:20px;
@@ -587,6 +589,42 @@ img{
     box-shadow:0 15px 35px rgba(0,0,0,.10);
 
     text-align:left;
+
+}
+
+.closeLetter{
+
+    position:absolute;
+
+    top:15px;
+
+    right:15px;
+
+    width:38px;
+
+    height:38px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:var(--pink);
+
+    color:#fff;
+
+    font-size:18px;
+
+    cursor:pointer;
+
+    z-index:100;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+
+}
+
+.closeLetter:hover{
+
+    transform:scale(1.08);
 
 }
 
