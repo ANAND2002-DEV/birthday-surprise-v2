@@ -183,6 +183,9 @@ document.querySelector(".loveLetter");
 const openLetter =
 document.getElementById("openLetter");
 
+const closeLetter =
+document.getElementById("closeLetter");
+
 loveLetter.style.display = "none";
 
 
@@ -211,6 +214,24 @@ openLetter.addEventListener("click",()=>{
         });
 
     },600);
+
+});
+
+closeLetter.addEventListener("click",()=>{
+
+    loveLetter.style.display = "none";
+
+    loveLetter.classList.remove("show");
+
+    envelope.style.display = "block";
+
+    envelope.style.opacity = "1";
+
+    envelope.style.transform = "scale(1)";
+
+    envelope.scrollIntoView({
+        behavior:"smooth"
+    });
 
 });
 
@@ -362,7 +383,7 @@ const popupObserver = new IntersectionObserver((entries)=>{
     });
 
 },{
-    threshold:0.4
+    threshold:1
 });
 
 popupObserver.observe(ending);
