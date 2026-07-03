@@ -366,34 +366,25 @@ const ending = finalPhoto;
 
 let popupShown = false;
 
-const popupObserver = new IntersectionObserver((entries)=>{
-
-    entries.forEach(entry=>{
-
-        if(entry.isIntersecting && !popupShown){
-
-            popupShown = true;
-
-            popup.style.display = "flex";
-
-            startConfetti();
-
-        }
-
-    });
-
-},{
-    threshold:1
-});
-
-popupObserver.observe(ending);
-
 closePopup.addEventListener("click",()=>{
 
     popup.style.display="none";
 
 });
 
+window.addEventListener("scroll", () => {
+
+    if (popupShown) return;
+
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 50) {
+
+        popupShown = true;
+        popup.style.display = "flex";
+        startConfetti();
+
+    }
+
+});
 
 /* ---------- CONFETTI ---------- */
 
