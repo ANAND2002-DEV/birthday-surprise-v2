@@ -47,6 +47,8 @@ function startExperience(){
 
         showVisibleSections();
 
+       websiteOpened = true;
+
     },800);
 
 }
@@ -365,6 +367,7 @@ const closePopup = document.getElementById("closePopup");
 const ending = finalPhoto;
 
 let popupShown = false;
+let websiteOpened = false;
 
 closePopup.addEventListener("click",()=>{
 
@@ -374,7 +377,7 @@ closePopup.addEventListener("click",()=>{
 
 window.addEventListener("scroll", () => {
 
-    if (popupShown) return;
+    if (!websiteOpened || popupShown) return;
 
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 50) {
 
