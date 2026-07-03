@@ -362,7 +362,7 @@ finalPhotoObserver.observe(finalPhoto);
 
 const popup = document.getElementById("birthdayPopup");
 const closePopup = document.getElementById("closePopup");
-const ending = document.querySelector(".ending");
+const ending = finalPhoto;
 
 let popupShown = false;
 
